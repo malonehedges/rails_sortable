@@ -5,7 +5,7 @@ class SortableController < ApplicationController
   def reorder
     klass, ids = parse_params
     attr = klass.sort_attribute
-    models = klass.order(attr).to_a
+    models = klass.order(attr => :asc).to_a
     ids.each_with_index do |id, new_sort|
       model = models.find {|m| m.id == id }
       model.update_sort!(new_sort) if model.read_attribute(attr) != new_sort
